@@ -29,3 +29,5 @@ directory "/etc/gitlab" do
 end
 
 template "/etc/gitlab/gitlab.rb"
+
+execute "/opt/gitlab/bin/gitlab-ctl reconfigure"
