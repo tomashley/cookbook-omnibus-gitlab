@@ -23,3 +23,9 @@ when ".deb"
 else
   raise "Unsupported package format: #{pkg_source}"
 end
+
+directory "/etc/gitlab" do
+  mode "0700"
+end
+
+template "/etc/gitlab/gitlab.rb"
