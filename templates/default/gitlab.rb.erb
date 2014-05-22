@@ -1,6 +1,6 @@
 external_url '<%= node['omnibus-gitlab']['external_url'] %>'
 
-<% %w{bootstrap postgresql unicorn sidekiq redis gitlab-rails}.each do |svc| %>
+<% %w{bootstrap postgresql unicorn sidekiq redis nginx gitlab-rails}.each do |svc| %>
 <%   if node['omnibus-gitlab'][svc] %>
 <%     node['omnibus-gitlab'][svc].each do |key, value| %>
 <%=      svc.gsub('-', '_') %>['<%= key %>'] = <%= value.inspect %>
