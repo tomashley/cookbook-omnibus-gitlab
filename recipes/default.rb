@@ -28,6 +28,10 @@ directory "/etc/gitlab" do
   mode "0700"
 end
 
-template "/etc/gitlab/gitlab.rb"
+template "/etc/gitlab/gitlab.rb" do
+  notifies :run, 'execute[gitlab-ctl reconfigure]'
+end
 
-execute "/opt/gitlab/bin/gitlab-ctl reconfigure"
+execute "gitlab-ctl reconfigure" do
+  action :nothing
+end
