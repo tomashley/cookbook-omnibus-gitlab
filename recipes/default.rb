@@ -1,0 +1,25 @@
+#
+# Cookbook Name:: cookbook-omnibus-gitlab
+# Recipe:: default
+#
+# Copyright (C) 2014 YOUR_NAME
+#
+# All rights reserved - Do Not Redistribute
+#
+
+pkg_source = node['omnibus-gitlab']['package']['url']
+pkg_path = File.join(Chef::Config[:file_cache_path], File.basename(pkg_source))
+
+remote_file pkg_path do
+  source pkg_source
+  checksum node['omnibus-gitlab']['package']['sha256']
+end
+
+case File.extname(pkg_source)
+when ".deb"
+  dpkg_package "gitlab" do
+    source pkg_path
+  end
+else
+  raise "Unsupported package format: #{pkg_source}"
+end
