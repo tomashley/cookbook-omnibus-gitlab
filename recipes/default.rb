@@ -19,6 +19,7 @@ case File.extname(pkg_source)
 when ".deb"
   dpkg_package "gitlab" do
     source pkg_path
+    notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
 else
   raise "Unsupported package format: #{pkg_source}"
