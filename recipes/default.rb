@@ -25,11 +25,10 @@ else
   raise "Unsupported package format: #{pkg_source}"
 end
 
-directory "/etc/gitlab" do
-  mode "0700"
-end
+directory "/etc/gitlab"
 
 template "/etc/gitlab/gitlab.rb" do
+  mode "0600"
   notifies :run, 'execute[gitlab-ctl reconfigure]'
 end
 
