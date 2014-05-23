@@ -1,8 +1,8 @@
-external_url '<%= node['omnibus-gitlab']['external_url'] %>'
+external_url '<%= node['omnibus-gitlab']['gitlab_rb']['external_url'] %>'
 
 <% %w{bootstrap postgresql unicorn sidekiq redis nginx gitlab-rails}.each do |svc| %>
-<%   if node['omnibus-gitlab'][svc] %>
-<%     node['omnibus-gitlab'][svc].each do |key, value| %>
+<%   if node['omnibus-gitlab']['gitlab_rb'][svc] %>
+<%     node['omnibus-gitlab']['gitlab_rb'][svc].each do |key, value| %>
 <%=      svc.gsub('-', '_') %>['<%= key %>'] = <%= value.inspect %>
 <%     end %>
 <%   end %>
