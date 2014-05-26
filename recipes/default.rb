@@ -12,7 +12,6 @@ data_bag_item = node.chef_environment
 if data_bag_name && search(data_bag_name, "id:#{data_bag_item}").any?
   environment_secrets = Chef::EncryptedDataBagItem.load(data_bag_name, data_bag_item).to_hash
   environment_secrets.delete("id")
-  log environment_secrets.inspect
   node.consume_attributes(environment_secrets)
 end
 
