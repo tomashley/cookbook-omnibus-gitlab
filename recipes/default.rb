@@ -7,11 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-if data_bag(node['omnibus-gitlab']['data_bag'])
-  environment_secrets = data_bag_item(node['omnibus-gitlab']['data_bag'], node.chef_environment)
-  if environment_secrets
-    node.consume_attributes(environment_secrets)
-  end
+data_bag_name = node['omnibus-gitlab']['data_bag']
+data_bag_item = node.chef_environment
+if search(data_bag_name, "id:#{data_bag_item}").any?
+  environment_secrets = data_bag_item(data_bag_name, data_bag_item)
+  node.consume_attributes(environment_secrets)
 end
 
 pkg_source = node['omnibus-gitlab']['package']['url']
