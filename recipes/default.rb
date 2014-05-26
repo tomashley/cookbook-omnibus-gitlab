@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
+environment_secrets = data_bag_item(node['omnibus-gitlab']['data_bag'], node.chef_environment)
+if environment_secrets
+  node.consume_attributes(environment_secrets)
+end
+
 pkg_source = node['omnibus-gitlab']['package']['url']
 pkg_path = File.join(Chef::Config[:file_cache_path], File.basename(pkg_source))
 
