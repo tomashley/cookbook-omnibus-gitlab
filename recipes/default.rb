@@ -40,6 +40,24 @@ template "/etc/gitlab/gitlab.rb" do
   notifies :run, 'execute[gitlab-ctl reconfigure]'
 end
 
+directory "/etc/gitlab/ssl" do
+  mode "0700"
+end
+
+ssl_certificate = node['omnibus-gitlab']['ssl']['certificate']
+file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
+  content ssl_certificate
+  not_if { ssl_certificate.nil? }
+end
+
+ssl_private_key = node['omnibus-gitlab']['ssl']['private_key']
+file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
+  content ssl_private_key
+  not_if { ssl_private_key.nil? }
+  mode "0600"
+end
+
+
 execute "gitlab-ctl reconfigure" do
   action :nothing
 end
