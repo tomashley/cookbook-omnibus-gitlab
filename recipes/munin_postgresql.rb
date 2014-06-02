@@ -16,7 +16,6 @@ end
   postgres_transactions_
   postgres_tuples_
   postgres_locks_
-  postgres_querylength_
 }.each do |pg_db_plugin|
   munin_plugin pg_db_plugin do
     plugin "#{pg_db_plugin}#{database}"
