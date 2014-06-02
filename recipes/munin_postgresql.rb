@@ -24,9 +24,7 @@ end
 end
 
 %w{
-  postgres_connections_db
   postgres_xlog
-  postgres_users
   postgres_checkpoints
   postgres_bgwriter
 }.each do |pg_plugin|
