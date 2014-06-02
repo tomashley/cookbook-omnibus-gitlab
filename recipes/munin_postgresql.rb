@@ -9,13 +9,29 @@ template File.join(node['munin']['basedir'], "plugin-conf.d/override-postgres") 
   notifies :restart, "service[munin-node]"
 end
 
-munin_plugin "postgres_connections_" do
-  plugin "postgres_connections_#{database}"
-  notifies :restart, "service[munin-node]"
+%w{
+  postgres_scans_
+  postgres_cache_
+  postgres_size_
+  postgres_transactions_
+  postgres_tuples_
+  postgres_locks_
+  postgres_querylength_
+}.each do |pg_db_plugin|
+  munin_plugin pg_db_plugin do
+    plugin "#{pg_db_plugin}#{database}"
+    notifies :restart, "service[munin-node]"
+  end
 end
 
-munin_plugin "postgres_size_" do
-  plugin "postgres_size_#{database}"
-  variables({port: port, user: user})
-  notifies :restart, "service[munin-node]"
+%w{
+  postgres_connections_db
+  postgres_xlog
+  postgres_users
+  postgres_checkpoints
+  postgres_bgwriter
+}.each do |pg_plugin|
+  munin_plugin pg_plugin do
+    notifies :restart, "service[munin-node]"
+  end
 end
