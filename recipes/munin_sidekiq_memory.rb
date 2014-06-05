@@ -1,9 +1,9 @@
-template File.join(node['munin']['basedir'], "plugin-conf.d/multips_memory_sidekiq") do
-  variables(node['omnibus-gitlab']['munin'].to_hash)
+cookbook_file File.join(node['munin']['basedir'], "plugin-conf.d/omnibus_gitlab_sidekiq_rss") do
+  source "omnibus_gitlab_sidekiq_rss.conf.erb"
   notifies :restart, "service[munin-node]"
 end
 
-munin_plugin 'multips_memory' do
-  plugin "multips_memory_sidekiq"
+cookbook_file File.join(node['munin']['plugin_dir'], 'omnibus_gitlab_sidekiq_rss') do
+  mode "0755"
   notifies :restart, "service[munin-node]"
 end
