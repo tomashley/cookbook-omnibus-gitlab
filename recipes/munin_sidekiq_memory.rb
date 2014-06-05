@@ -1,5 +1,4 @@
-cookbook_file File.join(node['munin']['basedir'], "plugin-conf.d/omnibus_gitlab_sidekiq_rss") do
-  source "omnibus_gitlab_sidekiq_rss.conf.erb"
+cookbook_file File.join(node['munin']['basedir'], "plugin-conf.d/omnibus_gitlab_sidekiq_rss.conf") do
   notifies :restart, "service[munin-node]"
 end
 
