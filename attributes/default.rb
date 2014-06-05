@@ -8,3 +8,5 @@ default['omnibus-gitlab']['ssl']['private_key'] = nil
 
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] = "/etc/gitlab/ssl/nginx.crt"
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/nginx.key"
+
+default['omnibus-gitlab']['munin']['sidekiq_process_regex'] = "sidekiq.2"
