@@ -4,7 +4,7 @@ case $1 in
    config)
         cat <<'EOM'
 graph_title Sidekiq memory use
-graph_vlabel RSS
+graph_vlabel RSS (kB)
 graph_args --base 1024 -l 0
 graph_category gitlab
 sidekiq_rss.label Sidekiq RSS
