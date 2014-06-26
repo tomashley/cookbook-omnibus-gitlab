@@ -1,5 +1,5 @@
 external_url '<%= node['omnibus-gitlab']['gitlab_rb']['external_url'] %>'
-<% %w{user gitlab-rails bootstrap postgresql unicorn sidekiq redis nginx logging}.each do |svc| %>
+<% %w{user gitlab-rails bootstrap postgresql unicorn sidekiq redis nginx logging remote-syslog}.each do |svc| %>
 <%   if node['omnibus-gitlab']['gitlab_rb'][svc] %>
 
 <%     node['omnibus-gitlab']['gitlab_rb'][svc].each do |key, value| %>
