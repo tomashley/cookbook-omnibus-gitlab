@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Merge encrypted configuration settings (passwords, keys etc.) from an
+# encrypted data bag
 data_bag_name = node['omnibus-gitlab']['data_bag']
 data_bag_item = node.chef_environment
 if data_bag_name && search(data_bag_name, "id:#{data_bag_item}").any?
@@ -15,6 +17,7 @@ if data_bag_name && search(data_bag_name, "id:#{data_bag_item}").any?
   node.consume_attributes(environment_secrets)
 end
 
+# Download and install the package assigned to this node
 pkg_source = node['omnibus-gitlab']['package']['url']
 pkg_path = File.join(Chef::Config[:file_cache_path], File.basename(pkg_source))
 
@@ -33,6 +36,7 @@ else
   raise "Unsupported package format: #{pkg_source}"
 end
 
+# Create /etc/gitlab and its contents
 directory "/etc/gitlab"
 
 template "/etc/gitlab/gitlab.rb" do
@@ -57,7 +61,7 @@ file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
   mode "0600"
 end
 
-
+# Run gitlab-ctl reconfigure if /etc/gitlab/gitlab.rb changed
 execute "gitlab-ctl reconfigure" do
   action :nothing
 end
