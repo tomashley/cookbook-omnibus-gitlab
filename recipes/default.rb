@@ -52,7 +52,7 @@ ssl_certificate = node['omnibus-gitlab']['ssl']['certificate']
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
   content ssl_certificate
   not_if { ssl_certificate.nil? }
-  notifies :run, 'execute[reload nginx configuration]'
+  notifies :run, 'bash[reload nginx configuration]'
 end
 
 ssl_private_key = node['omnibus-gitlab']['ssl']['private_key']
@@ -60,7 +60,7 @@ file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
   content ssl_private_key
   not_if { ssl_private_key.nil? }
   mode "0600"
-  notifies :run, 'execute[reload nginx configuration]'
+  notifies :run, 'bash[reload nginx configuration]'
 end
 
 # Run gitlab-ctl reconfigure if /etc/gitlab/gitlab.rb changed
@@ -68,7 +68,12 @@ execute "gitlab-ctl reconfigure" do
   action :nothing
 end
 
-execute "reload nginx configuration" do
-  command "gitlab-ctl status nginx && gitlab-ctl hup nginx"
+# Reload NGINX if the SSL certificate or key has changed
+bash "reload nginx configuration" do
+  code <<-EOS
+  if gitlab-ctl status nginx ; then
+    gitlab-ctl hup nginx
+  fi
+  EOS
   action :nothing
 end
