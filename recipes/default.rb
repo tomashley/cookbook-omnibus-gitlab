@@ -38,7 +38,7 @@ end
 # Create /etc/gitlab and its contents
 directory "/etc/gitlab"
 
-gitlab_rb = node['omnibus-gitlab']['gitlab_rb'].deep_merge(environment_secrets['omnibus-gitlab']['gitlab_rb'])
+gitlab_rb = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['gitlab_rb'], node['omnibus-gitlab']['gitlab_rb'])
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
   variables(gitlab_rb: gitlab_rb)
