@@ -7,14 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# Merge encrypted configuration settings (passwords, keys etc.) from an
+# Fetch encrypted configuration settings (passwords, keys etc.) from an
 # encrypted data bag
 data_bag_name = node['omnibus-gitlab']['data_bag']
 data_bag_item = node.chef_environment
+environment_secrets = Hash.new
 if data_bag_name && search(data_bag_name, "id:#{data_bag_item}").any?
   environment_secrets = Chef::EncryptedDataBagItem.load(data_bag_name, data_bag_item).to_hash
-  environment_secrets.delete("id")
-  node.consume_attributes(environment_secrets)
 end
 
 # Download and install the package assigned to this node
@@ -39,8 +38,10 @@ end
 # Create /etc/gitlab and its contents
 directory "/etc/gitlab"
 
+gitlab_rb = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['gitlab_rb'], node['omnibus-gitlab']['gitlab_rb'].to_hash)
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
+  variables(gitlab_rb: gitlab_rb)
   notifies :run, 'execute[gitlab-ctl reconfigure]'
 end
 
@@ -48,17 +49,17 @@ directory "/etc/gitlab/ssl" do
   mode "0700"
 end
 
-ssl_certificate = node['omnibus-gitlab']['ssl']['certificate']
+ssl = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['ssl'], node['omnibus-gitlab']['ssl'].to_hash)
+
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
-  content ssl_certificate
-  not_if { ssl_certificate.nil? }
+  content ssl['certificate']
+  not_if { ssl['certificate'].nil? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
-ssl_private_key = node['omnibus-gitlab']['ssl']['private_key']
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
-  content ssl_private_key
-  not_if { ssl_private_key.nil? }
+  content ssl['private_key']
+  not_if { ssl['private_key'].nil? }
   mode "0600"
   notifies :run, 'bash[reload nginx configuration]'
 end
