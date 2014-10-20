@@ -54,15 +54,27 @@ ssl = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['s
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
   content ssl['certificate']
   not_if { ssl['certificate'].nil? }
+  notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
   content ssl['private_key']
   not_if { ssl['private_key'].nil? }
   mode "0600"
+  notifies :run, 'bash[reload nginx configuration]'
 end
 
 # Run gitlab-ctl reconfigure if /etc/gitlab/gitlab.rb changed
 execute "gitlab-ctl reconfigure" do
+  action :nothing
+end
+
+# Reload NGINX if the SSL certificate or key has changed
+bash "reload nginx configuration" do
+  code <<-EOS
+  if gitlab-ctl status nginx ; then
+    gitlab-ctl hup nginx
+  fi
+  EOS
   action :nothing
 end
