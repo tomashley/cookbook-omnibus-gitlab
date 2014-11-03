@@ -3,12 +3,12 @@
 case $1 in
    config)
         cat <<'EOM'
-graph_title PostReceive job statistics
+graph_title PostReceive job duration
 graph_vlabel job time (s)
 graph_args --base 1000 -l 0
 graph_category gitlab
-average.label Average PostReceive
-pct90.label 90th-percentile PostReceive
+average.label Average PostReceive duration
+pct90.label 90th-percentile PostReceive duration
 graph_info The average and 90th-percentile value of the durations of the last 500 PostReceive jobs
 EOM
         exit 0;;
