@@ -18,7 +18,7 @@ EOM
         exit 0;;
 esac
 
-grep 'sidekiq:.* PostReceive .*done: .* sec$' /var/log/gitlab/sidekiq/current | tail -${window_size} | awk '
+grep 'sidekiq:.* PostReceive .*\(done\|fail\): .* sec$' /var/log/gitlab/sidekiq/current | tail -${window_size} | awk '
 {
   time[count] = $(NF - 1)
   total += time[count]
