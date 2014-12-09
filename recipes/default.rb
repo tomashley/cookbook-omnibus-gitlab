@@ -42,6 +42,7 @@ gitlab_rb = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitla
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
   variables(gitlab_rb: gitlab_rb)
+  helper(:single_quote) { |value| value.nil? ? nil : "'#{value}'" }
   notifies :run, 'execute[gitlab-ctl reconfigure]'
 end
 
