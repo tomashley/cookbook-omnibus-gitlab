@@ -1,4 +1,8 @@
 external_url '<%= @gitlab_rb['external_url'] %>'
+ci_external_url '<%= @gitlab_rb['ci_external_url'] %>'
+
+git_data_dir '<%= @gitlab_rb['git_data_dir'] %>'
+
 <% %w{user gitlab-rails bootstrap postgresql unicorn sidekiq redis nginx web-server logging remote-syslog high-availability}.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
