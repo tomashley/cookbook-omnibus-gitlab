@@ -1,3 +1,7 @@
+# 0.1.3
+
+## Create the SSL key and certificate for GitLab CI
+
 # 0.1.2
 
 ## Prevent storing secrets in the Chef node object
