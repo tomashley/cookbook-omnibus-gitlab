@@ -38,6 +38,8 @@ end
 # Create /etc/gitlab and its contents
 directory "/etc/gitlab"
 
+environment_secrets['omnibus-gitlab'] ||= Hash.new
+environment_secrets['omnibus-gitlab']['gitlab_rb'] ||= Hash.new
 gitlab_rb = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['gitlab_rb'], node['omnibus-gitlab']['gitlab_rb'].to_hash)
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
@@ -50,6 +52,8 @@ directory "/etc/gitlab/ssl" do
   mode "0700"
 end
 
+environment_secrets['omnibus-gitlab'] ||= Hash.new
+environment_secrets['omnibus-gitlab']['ssl'] ||= Hash.new
 ssl = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['ssl'], node['omnibus-gitlab']['ssl'].to_hash)
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
