@@ -70,8 +70,8 @@ file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate'] do
-  content ssl['ci-certificate']
-  not_if { ssl['ci-certificate'].nil? }
+  content ssl['ci_certificate']
+  not_if { ssl['ci_certificate'].nil? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
