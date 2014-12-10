@@ -1,3 +1,9 @@
+# 0.1.3
+
+## Create the SSL key and certificate for GitLab CI
+
+## Also render ci_external_url and git_data_dir in gitlab.rb
+
 # 0.1.2
 
 ## Prevent storing secrets in the Chef node object

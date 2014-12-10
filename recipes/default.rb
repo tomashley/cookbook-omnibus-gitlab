@@ -38,10 +38,13 @@ end
 # Create /etc/gitlab and its contents
 directory "/etc/gitlab"
 
+environment_secrets['omnibus-gitlab'] ||= Hash.new
+environment_secrets['omnibus-gitlab']['gitlab_rb'] ||= Hash.new
 gitlab_rb = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['gitlab_rb'], node['omnibus-gitlab']['gitlab_rb'].to_hash)
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
   variables(gitlab_rb: gitlab_rb)
+  helper(:single_quote) { |value| value.nil? ? nil : "'#{value}'" }
   notifies :run, 'execute[gitlab-ctl reconfigure]'
 end
 
@@ -49,6 +52,8 @@ directory "/etc/gitlab/ssl" do
   mode "0700"
 end
 
+environment_secrets['omnibus-gitlab'] ||= Hash.new
+environment_secrets['omnibus-gitlab']['ssl'] ||= Hash.new
 ssl = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['ssl'], node['omnibus-gitlab']['ssl'].to_hash)
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
@@ -60,6 +65,19 @@ end
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
   content ssl['private_key']
   not_if { ssl['private_key'].nil? }
+  mode "0600"
+  notifies :run, 'bash[reload nginx configuration]'
+end
+
+file node['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate'] do
+  content ssl['ci_certificate']
+  not_if { ssl['ci_certificate'].nil? }
+  notifies :run, 'bash[reload nginx configuration]'
+end
+
+file node['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate_key'] do
+  content ssl['ci_private_key']
+  not_if { ssl['ci_private_key'].nil? }
   mode "0600"
   notifies :run, 'bash[reload nginx configuration]'
 end

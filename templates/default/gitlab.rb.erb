@@ -1,5 +1,29 @@
-external_url '<%= @gitlab_rb['external_url'] %>'
-<% %w{user gitlab-rails bootstrap postgresql unicorn sidekiq redis nginx web-server logging remote-syslog high-availability}.each do |svc| %>
+external_url <%= single_quote @gitlab_rb['external_url'] %>
+ci_external_url <%= single_quote @gitlab_rb['ci_external_url'] %>
+
+git_data_dir <%= single_quote @gitlab_rb['git_data_dir'] %>
+
+<% %w{
+bootstrap
+user
+gitlab-rails
+unicorn
+sidekiq
+gitlab-shell
+postgresql
+redis
+web-server
+nginx
+logging
+remote-syslog
+logrotate
+high-availability
+gitlab-ci
+ci-unicorn
+ci-sidekiq
+ci-redis
+ci-nginx
+  }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
 <%     @gitlab_rb[svc].each do |key, value| %>
