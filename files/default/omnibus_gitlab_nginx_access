@@ -1,0 +1,24 @@
+#!/bin/sh
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title NGINX gitlab_access.log
+graph_vlabel Requests per second
+graph_args --base 1000 -l 0
+graph_category nginx
+gitlab_access_log.label gitlab_access.log requests/second
+graph_info Average requests per second in gitlab_access.log over the past 5 minutes
+EOM
+        exit 0;;
+esac
+
+# Create 5 strings, m1 through m5, that read e.g. '27/Jan/2015:10:22' (note
+# that the seconds are missing!). Pass the strings as variables to awk and let
+# awk count lines in which the fourth field (the timestamp) matches one of the
+# 5 strings. Divide the total by 300 (5*60) to get the avarage number of
+# requests per second.
+awk $(for m in $(seq 5); do echo "-vm$m=$(date +'%d/%b/%Y:%H:%M' --date="$m minute ago")"; done) '
+  $4 ~ m1 || $4 ~ m2 || $4 ~ m3 || $4 ~ m4 || $4 ~ m5 { count += 1 }
+  END { print "gitlab_access.log.value " count/300 }
+' /var/log/gitlab/nginx/gitlab_access.log
