@@ -16,6 +16,14 @@ if data_bag_name && search(data_bag_name, "id:#{data_bag_item}").any?
   environment_secrets = Chef::EncryptedDataBagItem.load(data_bag_name, data_bag_item).to_hash
 end
 
+# Install git-annex
+
+required_packages = %w( git-annex )
+
+required_packages.each do |pkg_name|
+  package pkg_name
+end
+
 # Download and install the package assigned to this node
 pkg_source = node['omnibus-gitlab']['package']['url']
 pkg_path = File.join(Chef::Config[:file_cache_path], File.basename(pkg_source))
