@@ -4,8 +4,6 @@
 
 ## Also render ci_external_url and git_data_dir in gitlab.rb
 
-## Added install of git-annex
-
 # 0.1.2
 
 ## Prevent storing secrets in the Chef node object
