@@ -31,6 +31,11 @@ when ".deb"
     source pkg_path
     notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
+when ".rpm"
+  rpm_package "gitlab" do
+    source pkg_path
+    notifies :run, 'execute[gitlab-ctl reconfigure]'
+  end
 else
   raise "Unsupported package format: #{pkg_source}"
 end
