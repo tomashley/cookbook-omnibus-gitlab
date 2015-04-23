@@ -11,4 +11,6 @@ default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] = "/etc/g
 default['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate'] = "/etc/gitlab/ssl/ci-nginx.crt"
 default['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/ci-nginx.key"
 
+default['omnibus-gitlab']['skip_auto_migrations'] = false
+
 default['omnibus-gitlab']['munin_sidekiq_postreceive']['window_size'] = 100

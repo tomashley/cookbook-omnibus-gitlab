@@ -53,6 +53,14 @@ template "/etc/gitlab/gitlab.rb" do
   notifies :run, 'execute[gitlab-ctl reconfigure]'
 end
 
+file '/etc/gitlab/skip-auto-migrations' do
+  if node['omnibus-gitlab']['skip_auto_migrations']
+    action :create
+  else
+    action :delete
+  end
+end
+
 directory "/etc/gitlab/ssl" do
   mode "0700"
 end
