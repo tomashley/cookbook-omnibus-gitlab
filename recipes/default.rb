@@ -9,12 +9,7 @@
 
 # Fetch encrypted configuration settings (passwords, keys etc.) from an
 # encrypted data bag
-data_bag_name = node['omnibus-gitlab']['data_bag']
-data_bag_item = node.chef_environment
-environment_secrets = Hash.new
-if data_bag_name && search(data_bag_name, "id:#{data_bag_item}").any?
-  environment_secrets = Chef::EncryptedDataBagItem.load(data_bag_name, data_bag_item).to_hash
-end
+environment_secrets = OmnibusGitlab.environment_secrets_for_node(node)
 
 # Download and install the package assigned to this node
 pkg_source = node['omnibus-gitlab']['package']['url']
