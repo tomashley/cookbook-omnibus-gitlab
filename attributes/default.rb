@@ -6,6 +6,8 @@ default['omnibus-gitlab']['data_bag'] = nil
 default['omnibus-gitlab']['ssl']['certificate'] = nil
 default['omnibus-gitlab']['ssl']['private_key'] = nil
 
+default['omnibus-gitlab']['ssh']['host_keys'] = {} # hash of 'filename' => 'contents' pairs
+
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] = "/etc/gitlab/ssl/nginx.crt"
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/nginx.key"
 default['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate'] = "/etc/gitlab/ssl/ci-nginx.crt"
