@@ -43,6 +43,9 @@ mv ${temp_key}.pub #{key_path}.pub
 
 # If this script timed out, you probably provided an invalid SSH host key!
     }
+    # This timeout is crucial. If the user supplies an invalid SSH host key
+    # then ssh-keygen will prompt the user for a password, effectively making
+    # the script hang.
     timeout 10
     not_if { File.exists?(key_path) && File.read(key_path).strip == key_material.strip }
   end
