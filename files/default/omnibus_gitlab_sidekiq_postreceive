@@ -1,9 +1,5 @@
 #!/bin/sh
 
-if [ -z "${window_size}" ] ; then
-  window_size=100
-fi
-
 case $1 in
    config)
         cat <<EOM
@@ -18,15 +14,22 @@ EOM
         exit 0;;
 esac
 
-grep 'sidekiq:.* PostReceive .*done: .* sec$' /var/log/gitlab/sidekiq/current | tail -${window_size} | awk '
-{
+# Variables m1, .., m5 contain date strings pointing to 1, .. 5 minutes ago
+awk $(for m in $(seq 5); do echo "-vm$m=$(date +'%Y-%m-%dT%H:%M' --date="$m minute ago")"; done) '
+($4 ~ m1 || $4 ~ m2  || $4 ~ m3 || $4 ~ m4 || $4 ~ m5) && /PostReceive.*done: .* sec$/ {
   time[count] = $(NF - 1)
   total += time[count]
   count += 1
 }
 END {
+  if (count == 0) {
+    print "average.value U"
+    print "pct90.value U"
+    exit 0
+  }
+
   print "average.value " total/count
   asort(time)
-  print "pct90.value " time[0.9*count]
+  print "pct90.value " time[int(0.9*count)]
 }
-'
+' /var/log/gitlab/sidekiq/current
