@@ -1,12 +1,12 @@
-port = node['omnibus-gitlab']['gitlab_rb']['redis']['port'] || 6379
-bind = node['omnibus-gitlab']['gitlab_rb']['redis']['bind'] || "0.0.0.0"
-
-cookbook_file File.join(node['munin']['plugin_dir'], "redis_") do
-  mode "0755"
+cookbook_file File.join(node['munin']['basedir'], "plugin-conf.d/omnibus_gitlab_redis.conf") do
   notifies :restart, "service[munin-node]"
 end
 
+cookbook_file File.join(node['munin']['plugin_dir'], "omnibus_gitlab_redis") do
+  mode "0755"
+  notifies :restart, "service[munin-node]"
+end
 munin_plugin 'redis_' do
-  plugin "redis_#{bind}_#{port}"
+  plugin "redis_socket_var_opt_gitlab_redis_redis.socket"
   notifies :restart, "service[munin-node]"
 end
