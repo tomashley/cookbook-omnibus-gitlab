@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# Downloaded from: https://github.com/bpineau/redis-munin
+# Local changes: Added env PATH for redis-cli
+#
 # The following code is released in public domain (where applicable).
 # http://creativecommons.org/publicdomain/zero/1.0/
 #%# family=auto
