@@ -18,7 +18,7 @@ package 'curl'
 case node['platform_family']
 when 'debian'
   execute "add #{pkg_base_url}/#{pkg_repo} apt repo" do
-    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.deb.sh | sudo bash"
+    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.deb.sh | bash"
     creates "/etc/apt/sources.list.d/#{pkg_repo.sub('/','_')}.list"
   end
 
@@ -27,7 +27,7 @@ when 'debian'
   end
 when 'rhel'
   execute "add #{pkg_base_url}/#{pkg_repo} yum repo" do
-    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.rpm.sh | sudo bash"
+    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.rpm.sh | bash"
     creates "/etc/yum.repos.d/#{pkg_repo.sub('/','_')}.repo"
   end
 
