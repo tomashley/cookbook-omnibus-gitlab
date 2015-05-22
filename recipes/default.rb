@@ -11,28 +11,30 @@
 # encrypted data bag
 environment_secrets = OmnibusGitlab.environment_secrets_for_node(node)
 
-# Download and install the package assigned to this node
-pkg_source = node['omnibus-gitlab']['package']['url']
-pkg_path = File.join(Chef::Config[:file_cache_path], File.basename(pkg_source))
+pkg_base_url = node['omnibus-gitlab']['package']['base_url']
+pkg_repo = node['omnibus-gitlab']['package']['repo']
+package 'curl'
 
-remote_file pkg_path do
-  source pkg_source
-  checksum node['omnibus-gitlab']['package']['sha256']
-end
+case node['platform_family']
+when 'debian'
+  execute "add #{pkg_base_url}/#{pkg_repo} apt repo" do
+    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.deb.sh | bash"
+    creates "/etc/apt/sources.list.d/#{pkg_repo.sub('/','_')}.list"
+  end
 
-case File.extname(pkg_source)
-when ".deb"
-  dpkg_package "gitlab" do
-    source pkg_path
-    notifies :run, 'execute[gitlab-ctl reconfigure]'
+  package node['omnibus-gitlab']['package']['name'] do
+    version node['omnibus-gitlab']['package']['version']
   end
-when ".rpm"
-  rpm_package "gitlab" do
-    source pkg_path
-    notifies :run, 'execute[gitlab-ctl reconfigure]'
+when 'rhel'
+  execute "add #{pkg_base_url}/#{pkg_repo} yum repo" do
+    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.rpm.sh | bash"
+    creates "/etc/yum.repos.d/#{pkg_repo.sub('/','_')}.repo"
   end
-else
-  raise "Unsupported package format: #{pkg_source}"
+
+  package node['omnibus-gitlab']['package']['name'] do
+    version node['omnibus-gitlab']['package']['version']
+    allow_downgrade true
+  end
 end
 
 # Create /etc/gitlab and its contents

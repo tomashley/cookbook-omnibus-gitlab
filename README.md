@@ -1,41 +1,26 @@
 # cookbook-omnibus-gitlab-cookbook
 
-TODO: Enter the cookbook description here.
+Install GitLab Community Edition or Enterprise Edition omnibus packages from
+packages.gitlab.com.
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+See packages.gitlab.com/gitlab/gitlab-ce.
+
 
 ## Attributes
 
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['cookbook-omnibus-gitlab']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+- `node['omnibus-gitlab']['package']['repo']` defaults to `gitlab/gitlab-ce`. Use `gitlab/gitlab-ee` for GitLab Enterprise Edition
+- `node['omnibus-gitlab']['package']['name']` defaults to `gitlab-ce`. Use `gitlab-ee` for GitLab Enterprise Edition
+
+TODO document more attributes
 
 ## Usage
 
-### cookbook-omnibus-gitlab::default
+### omnibus-gitlab::default
 
-Include `cookbook-omnibus-gitlab` in your node's `run_list`:
-
-```json
-{
-  "run_list": [
-    "recipe[cookbook-omnibus-gitlab::default]"
-  ]
-}
-```
+Installs a GitLab omnibus package, renders `/etc/gitlab/gitlab.rb`, manages SSL
+certificates.
 
 ## Contributing
 
@@ -48,4 +33,5 @@ Include `cookbook-omnibus-gitlab` in your node's `run_list`:
 
 ## License and Authors
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Author:: Marin Jankovski (marin@gitlab.com)
+Author:: Jacob Vosmaer (jacob@gitlab.com)
