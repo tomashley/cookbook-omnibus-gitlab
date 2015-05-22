@@ -15,6 +15,40 @@ See packages.gitlab.com/gitlab/gitlab-ce.
 
 TODO document more attributes
 
+### Examples
+
+Install GitLab Community Edition `7.11.1~omnibus-1`.
+
+```
+{
+  "omnibus-gitlab": {
+    "package": {
+      "version": "7.11.1~omnibus-1"
+    },
+    "gitlab_rb": {
+      "external_url": "http://gitlab.example.com"
+    }
+  }
+}
+```
+
+Install GitLab Enterprise Edition `7.11.1~ee.omnibus-1`.
+
+```
+{
+  "omnibus-gitlab": {
+    "package": {
+      "repo": "gitlab/gitlab-ee",
+      "name": "gitlab-ee",
+      "version": "7.11.1~ee.omnibus-1"
+    },
+    "gitlab_rb": {
+      "external_url": "http://gitlab.example.com"
+    }
+  }
+}
+```
+
 ## Usage
 
 ### omnibus-gitlab::default
