@@ -4,7 +4,7 @@ case $1 in
   config)
     cat <<EOM
 graph_title Unicorn worker age at memory restart
-graph_vlabel avg worker age (s)
+graph_vlabel worker age at restart (s)
 graph_args --base 1000 -l 0
 graph_category gitlab
 average.label Average memory restart age
