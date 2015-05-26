@@ -7,8 +7,8 @@ graph_title Unicorn worker age at memory restart
 graph_vlabel avg worker age (s)
 graph_args --base 1000 -l 0
 graph_category gitlab
-average.label Average Unicorn worker age when MemoryKiller kicks in
-pct90.label 90th-percentile Unicorn worker age when MemoryKiller kicks in
+average.label Average memory restart age
+pct90.label 90th-percentile memory restart age
 graph_info The average and 90th-percentile value over the past 5 minutes of the age of Unicorn workers before the 'MemoryKiller' takes them.
 EOM
     exit 0;;
