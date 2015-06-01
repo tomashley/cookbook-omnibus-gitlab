@@ -24,6 +24,7 @@ when 'debian'
 
   package node['omnibus-gitlab']['package']['name'] do
     version node['omnibus-gitlab']['package']['version']
+    notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
 when 'rhel'
   execute "add #{pkg_base_url}/#{pkg_repo} yum repo" do
@@ -33,6 +34,7 @@ when 'rhel'
 
   package node['omnibus-gitlab']['package']['name'] do
     version node['omnibus-gitlab']['package']['version']
+    notifies :run, 'execute[gitlab-ctl reconfigure]'
     allow_downgrade true
   end
 end
