@@ -56,6 +56,41 @@ Install GitLab Enterprise Edition `7.11.1~ee.omnibus-1`.
 Installs a GitLab omnibus package, renders `/etc/gitlab/gitlab.rb`, manages SSL
 certificates.
 
+### omnibus-gitlab::backup_cron_job
+
+Create/remove a cron job for GitLab backups. Defaults to daily backups at 0:45.
+
+Use 'gitlab.rb' to configure parameters like rotation and cloud uploads.
+
+#### Examples
+
+Disable backups of repositories and uploaded files:
+
+```
+{
+  "omnibus-gitlab": {
+    "backup_cron_job": {
+      "skip": [
+        "repositories",
+        "uploads"
+      ]
+    }
+  }
+}
+```
+
+Run the backup script with progress messages:
+
+```
+{
+  "omnibus-gitlab": {
+    "backup_cron_job": {
+      "silent": false
+    }
+  }
+}
+```
+
 ## Contributing
 
 1. Fork the repository on Github

@@ -20,3 +20,11 @@ default['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate_key'] = "/et
 default['omnibus-gitlab']['skip_auto_migrations'] = false
 
 default['omnibus-gitlab']['munin_sidekiq_postreceive']['window_size'] = 100
+
+default['omnibus-gitlab']['backup_cron_job']['skip'] = []
+default['omnibus-gitlab']['backup_cron_job']['silent'] = true
+default['omnibus-gitlab']['backup_cron_job']['hour'] = '0'
+default['omnibus-gitlab']['backup_cron_job']['minute'] = '45'
+default['omnibus-gitlab']['backup_cron_job']['weekday'] = nil # defaults to '*', every day
+default['omnibus-gitlab']['backup_cron_job']['user'] = 'root'
+default['omnibus-gitlab']['backup_cron_job']['enable'] = true
