@@ -8,24 +8,25 @@ git_data_dir <%= single_quote @gitlab_rb['git_data_dir'] %>
 
 <% %w{
 bootstrap
+omnibus_gitconfig
 user
-gitlab-rails
-unicorn
-sidekiq
-gitlab-shell
-postgresql
 redis
-web-server
+ci-redis
+gitlab-rails
+gitlab-ci
+gitlab-shell
+unicorn
+ci-unicorn
+sidekiq
+ci-sidekiq
 nginx
+ci-nginx
 logging
 remote-syslog
 logrotate
 high-availability
-gitlab-ci
-ci-unicorn
-ci-sidekiq
-ci-redis
-ci-nginx
+postgresql
+web-server
   }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
