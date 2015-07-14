@@ -13,7 +13,7 @@ See packages.gitlab.com/gitlab/gitlab-ce.
 - `node['omnibus-gitlab']['package']['repo']` defaults to `gitlab/gitlab-ce`. Use `gitlab/gitlab-ee` for GitLab Enterprise Edition
 - `node['omnibus-gitlab']['package']['name']` defaults to `gitlab-ce`. Use `gitlab-ee` for GitLab Enterprise Edition
 
-TODO document more attributes
+For more available attributes see `attributes/default.rb`.
 
 ### Examples
 
@@ -93,7 +93,7 @@ Run the backup script with progress messages:
 
 ## Contributing
 
-1. Fork the repository on Github
+1. Fork the repository on GitLab.com
 2. Create a named feature branch (i.e. `add-new-recipe`)
 3. Write you change
 4. Write tests for your change (if applicable)

@@ -76,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.json = {
       'omnibus-gitlab' => {
         'gitlab_rb' => {
-            'external_url' => 'http://localhost'
+          'external_url' => 'http://localhost'
         }
       }
     }

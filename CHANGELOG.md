@@ -1,6 +1,8 @@
 # 0.2.0
 
-## Switch from package file downloads to packages.gitlab.com
+- Render omnibus-gitconfig in gitlab.rb
+- Update Vagrantfile for easier development
+- Switch from package file downloads to packages.gitlab.com
 
 We no longer support entering a URL+SHA256 in the attributes to select the
 package that gets installed. Instead, we add packages.gitlab.com as an apt/yum
@@ -36,13 +38,13 @@ GitLab EE:
 
 # 0.1.3
 
-## Create the SSL key and certificate for GitLab CI
+- Create the SSL key and certificate for GitLab CI
 
-## Also render ci_external_url and git_data_dir in gitlab.rb
+- Also render ci_external_url and git_data_dir in gitlab.rb
 
 # 0.1.2
 
-## Prevent storing secrets in the Chef node object
+- Prevent storing secrets in the Chef node object
 
 Cookbook-omnibus-gitlab allows you to keep secret Omnibus-gitLab settings
 (passwords, keys) in an encrypted data bag. These secrets then get decrypted
