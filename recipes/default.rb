@@ -24,6 +24,7 @@ when 'debian'
 
   package node['omnibus-gitlab']['package']['name'] do
     version node['omnibus-gitlab']['package']['version']
+    options '--force-downgrade'
     notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
 when 'rhel'
