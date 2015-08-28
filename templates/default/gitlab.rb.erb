@@ -3,6 +3,7 @@
 
 external_url <%= single_quote @gitlab_rb['external_url'] %>
 ci_external_url <%= single_quote @gitlab_rb['ci_external_url'] %>
+mattermost_external_url <%= single_quote @gitlab_rb['mattermost_external_url'] %>
 
 git_data_dir <%= single_quote @gitlab_rb['git_data_dir'] %>
 
@@ -15,19 +16,21 @@ ci-redis
 gitlab-rails
 gitlab-ci
 gitlab-shell
-gitlab-git-http-server
 unicorn
 ci-unicorn
 sidekiq
 ci-sidekiq
+gitlab-git-http-server
 nginx
 ci-nginx
+mattermost_nginx
 logging
 remote-syslog
 logrotate
 high-availability
 postgresql
 web-server
+mattermost
   }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 

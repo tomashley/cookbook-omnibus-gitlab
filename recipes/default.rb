@@ -94,6 +94,19 @@ file node['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate_key'] do
   notifies :run, 'bash[reload nginx configuration]'
 end
 
+file node['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate'] do
+  content ssl['mattermost_certificate']
+  not_if { ssl['mattermost_certificate'].nil? }
+  notifies :run, 'bash[reload nginx configuration]'
+end
+
+file node['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate_key'] do
+  content ssl['mattermost_private_key']
+  not_if { ssl['mattermost_private_key'].nil? }
+  mode "0600"
+  notifies :run, 'bash[reload nginx configuration]'
+end
+
 # Run gitlab-ctl reconfigure if /etc/gitlab/gitlab.rb changed
 execute "gitlab-ctl reconfigure" do
   action :nothing
