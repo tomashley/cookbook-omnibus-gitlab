@@ -3,13 +3,7 @@
 #
 # Use with care! If you supply invalid host keys, you may loose SSH access to
 # your server.
-
-environment_secrets = OmnibusGitlab.environment_secrets_for_node(node)
-
-environment_secrets['omnibus-gitlab'] ||= Hash.new
-environment_secrets['omnibus-gitlab']['ssh'] ||= Hash.new
-environment_secrets['omnibus-gitlab']['ssh']['host_keys'] ||= Hash.new
-ssh = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['ssh'], node['omnibus-gitlab']['ssh'].to_hash)
+ssh = OmnibusGitlab.environment_attributes_with_secrets(node, "omnibus-gitlab", "ssh", "host_keys")
 
 ssh['host_keys'].each do |filename, key_material|
   key_path = "/etc/ssh/#{filename}"
