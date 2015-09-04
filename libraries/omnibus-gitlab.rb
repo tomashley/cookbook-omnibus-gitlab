@@ -20,7 +20,7 @@ module OmnibusGitlab
     Chef::Log.warn("Databag secrets: #{databag_secrets} for #{path}")
     if databag_secrets.any?
       secrets = fetch_or_init(databag_secrets, path)
-      Chef::Mixin::DeepMerge.deep_merge(databag_secrets.to_hash, node_attributes.to_hash)
+      Chef::Mixin::DeepMerge.deep_merge(secrets.to_hash, node_attributes.to_hash)
     else
       node_attributes
     end
