@@ -19,6 +19,7 @@ module OmnibusGitlab
     Chef::Log.warn("Node attributes: #{node_attributes} for #{path}")
     Chef::Log.warn("Databag secrets: #{databag_secrets} for #{path}")
     if databag_secrets.any?
+      secrets = fetch_or_init(databag_secrets, path)
       Chef::Mixin::DeepMerge.deep_merge(databag_secrets.to_hash, node_attributes.to_hash)
     else
       node_attributes
@@ -38,5 +39,16 @@ module OmnibusGitlab
 
   def self.fetch_from_vault(node, path)
     GitLab::AttributesWithSecrets.get(node, *path)
+  end
+
+  def self.fetch_or_init(hash, path)
+    result = hash
+
+    path.each do |p|
+      result[p] ||= Hash.new
+      result = result[p]
+    end
+
+    result
   end
 end
