@@ -2,9 +2,13 @@ module OmnibusGitlab
 
   def self.environment_attributes_with_secrets(node, *path)
     if node['omnibus-gitlab']['data_bag']
-      fetch_from_databag(node, path)
+      dbg = fetch_from_databag(node, path)
+      Chef::Log.warn("These are the contents of #{dbg} for #{path}")
+      dbg
     else
-      fetch_from_vault(node, path)
+      vlt = fetch_from_vault(node, path)
+      Chef::Log.warn("These are the contents of #{vlt} for #{path}")
+      vlt
     end
   end
 
@@ -12,6 +16,8 @@ module OmnibusGitlab
     node_attributes = GitLab::AttributesWithSecrets.fetch_path(node, path) # eg: node['omnibus-gitlab']['gitlab_rb']
     databag_secrets = environment_secrets_for_node(node) # eg: {"omnibus-gitlab": {"gitlab_rb": {}}} OR {}
 
+    Chef::Log.warn("Node attributes: #{node_attributes} for #{path}")
+    Chef::Log.warn("Databag secrets: #{databag_secrets} for #{path}")
     if databag_secrets.any?
       Chef::Mixin::DeepMerge.deep_merge(databag_secrets.to_hash, node_attributes.to_hash)
     else
