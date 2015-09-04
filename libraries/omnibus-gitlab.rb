@@ -13,8 +13,7 @@ module OmnibusGitlab
     databag_secrets = environment_secrets_for_node(node) # eg: {"omnibus-gitlab": {"gitlab_rb": {}}} OR {}
 
     if databag_secrets.any?
-      node_secrets = GitLab::AttributesWithSecrets.fetch_path(databag_secrets, path) # eg: databag_secrets['omnibus-gitlab']['gitlab_rb']
-      Chef::Mixin::DeepMerge.deep_merge(node_secrets, node_attributes.to_hash)
+      Chef::Mixin::DeepMerge.deep_merge(databag_secrets.to_hash, node_attributes.to_hash)
     else
       node_attributes
     end
