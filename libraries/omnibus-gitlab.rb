@@ -38,19 +38,7 @@ module OmnibusGitlab
   end
 
   def self.fetch_from_vault(node, path)
-    # GitLab::AttributesWithSecrets.get(node, *path)
-    node_attributes = GitLab::AttributesWithSecrets.fetch_path(node, path)
-    chef_vault = node_attributes['chef_vault']
-
-    Chef::Log.warn("Chef_vault? #{chef_vault} for #{path}")
-
-    chef_vault_item = node_attributes['chef_vault_item'] || node.chef_environment
-    Chef::Log.warn("Trying to load chef vault #{chef_vault} and item #{chef_vault_item} for #{path}")
-    secrets = ChefVault::Item.load(chef_vault, chef_vault_item).to_hash
-      # The 'id' attribute is used by Chef Vault; don't mix it in later
-    secrets.delete('id')
-    Chef::Log.warn("Secrets from vault: #{secrets}")
-    secrets
+    GitLab::AttributesWithSecrets.get(node, *path)
   end
 
   def self.fetch_or_init(hash, path)
