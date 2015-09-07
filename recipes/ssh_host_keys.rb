@@ -3,7 +3,15 @@
 #
 # Use with care! If you supply invalid host keys, you may loose SSH access to
 # your server.
-ssh = OmnibusGitlab.environment_attributes_with_secrets(node, "omnibus-gitlab", "ssh", "host_keys")
+attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
+                            OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
+                          else
+                            chef_gem 'chef-vault'
+                            require 'chef-vault'
+                            GitLab::AttributesWithSecrets.get(node, "omnibus-gitlab")
+                          end
+
+ssh = attributes_with_secrets['ssh']
 
 ssh['host_keys'].each do |filename, key_material|
   key_path = "/etc/ssh/#{filename}"

@@ -6,10 +6,14 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-chef_gem 'chef-vault'
-require 'chef-vault'
 
-attributes_with_secrets = OmnibusGitlab.environment_attributes_with_secrets(node, "omnibus-gitlab")
+attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
+                            OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
+                          else
+                            chef_gem 'chef-vault'
+                            require 'chef-vault'
+                            GitLab::AttributesWithSecrets.get(node, "omnibus-gitlab")
+                          end
 
 pkg_base_url = node['omnibus-gitlab']['package']['base_url']
 pkg_repo = node['omnibus-gitlab']['package']['repo']
