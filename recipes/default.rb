@@ -6,6 +6,10 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+chef_gem 'chef-vault'
+require 'chef-vault'
+
+attributes_with_secrets = OmnibusGitlab.environment_attributes_with_secrets(node, "omnibus-gitlab")
 
 pkg_base_url = node['omnibus-gitlab']['package']['base_url']
 pkg_repo = node['omnibus-gitlab']['package']['repo']
@@ -40,7 +44,7 @@ end
 directory "/etc/gitlab"
 
 # Fetch encrypted secrets and node attributes
-gitlab_rb = OmnibusGitlab.environment_attributes_with_secrets(node, "omnibus-gitlab", "gitlab_rb")
+gitlab_rb = attributes_with_secrets["gitlab_rb"]
 
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
@@ -62,7 +66,7 @@ directory "/etc/gitlab/ssl" do
 end
 
 # Fetch encrypted secrets and node attributes
-ssl = OmnibusGitlab.environment_attributes_with_secrets(node, "omnibus-gitlab", "ssl")
+ssl = attributes_with_secrets["ssl"]
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
   content ssl['certificate']
