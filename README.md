@@ -171,6 +171,7 @@ Encrypted data bag item will look similar to:
 
 ```json
 {
+  "id": "_default",
   "omnibus-gitlab": {
     "gitlab_rb": {
       "gitlab-rails": {
