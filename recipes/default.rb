@@ -7,9 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# Fetch encrypted configuration settings (passwords, keys etc.) from an
-# encrypted data bag
-environment_secrets = OmnibusGitlab.environment_secrets_for_node(node)
+attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
+                            OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
+                          else
+                            chef_gem 'chef-vault'
+                            require 'chef-vault'
+                            GitLab::AttributesWithSecrets.get(node, "omnibus-gitlab")
+                          end
 
 pkg_base_url = node['omnibus-gitlab']['package']['base_url']
 pkg_repo = node['omnibus-gitlab']['package']['repo']
@@ -43,9 +47,9 @@ end
 # Create /etc/gitlab and its contents
 directory "/etc/gitlab"
 
-environment_secrets['omnibus-gitlab'] ||= Hash.new
-environment_secrets['omnibus-gitlab']['gitlab_rb'] ||= Hash.new
-gitlab_rb = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['gitlab_rb'], node['omnibus-gitlab']['gitlab_rb'].to_hash)
+# Fetch encrypted secrets and node attributes
+gitlab_rb = attributes_with_secrets["gitlab_rb"]
+
 template "/etc/gitlab/gitlab.rb" do
   mode "0600"
   variables(gitlab_rb: gitlab_rb)
@@ -65,9 +69,8 @@ directory "/etc/gitlab/ssl" do
   mode "0700"
 end
 
-environment_secrets['omnibus-gitlab'] ||= Hash.new
-environment_secrets['omnibus-gitlab']['ssl'] ||= Hash.new
-ssl = Chef::Mixin::DeepMerge.deep_merge(environment_secrets['omnibus-gitlab']['ssl'], node['omnibus-gitlab']['ssl'].to_hash)
+# Fetch encrypted secrets and node attributes
+ssl = attributes_with_secrets["ssl"]
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
   content ssl['certificate']
