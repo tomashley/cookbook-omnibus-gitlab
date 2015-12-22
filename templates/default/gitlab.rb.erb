@@ -4,6 +4,7 @@
 external_url <%= single_quote @gitlab_rb['external_url'] %>
 ci_external_url <%= single_quote @gitlab_rb['ci_external_url'] %>
 mattermost_external_url <%= single_quote @gitlab_rb['mattermost_external_url'] %>
+pages_external_url <%= single_quote @gitlab_rb['pages_external_url'] %>
 
 git_data_dir <%= single_quote @gitlab_rb['git_data_dir'] %>
 
@@ -33,6 +34,7 @@ web-server
 mattermost
 mailroom
 gitlab-workhorse
+pages-nginx
   }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
