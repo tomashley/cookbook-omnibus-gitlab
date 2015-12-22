@@ -1,3 +1,18 @@
+# 0.3.2
+
+- Support for GitLab pages config
+
+# 0.3.1
+
+- Support for mailroom service
+- Support for gitlab-workhorse(name change from gitlab-git-http-server)
+
+# 0.3.0
+
+- Support gitlab-git-http-server config
+- Support mattermost config
+- Support for secrets stored in Chef Vault
+
 # 0.2.0
 
 - Render omnibus-gitconfig in gitlab.rb
