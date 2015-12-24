@@ -3,6 +3,10 @@
 Install GitLab Community Edition or Enterprise Edition omnibus packages from
 packages.gitlab.com.
 
+## Supported versions
+
+Latest version of this cookbook should be able to support installation of all versions of packages listed on packages.gitlab.com/gitlab/ .
+
 ## Supported Platforms
 
 See packages.gitlab.com/gitlab/gitlab-ce.
