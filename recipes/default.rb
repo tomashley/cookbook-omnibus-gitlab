@@ -10,7 +10,9 @@
 attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
                             OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
                           else
-                            chef_gem 'chef-vault'
+                            chef_gem 'chef-vault' do
+                              compile_time false if respond_to?(:compile_time)
+                            end
                             require 'chef-vault'
                             GitLab::AttributesWithSecrets.get(node, "omnibus-gitlab")
                           end
