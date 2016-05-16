@@ -10,7 +10,9 @@
 attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
                             OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
                           else
-                            chef_gem 'chef-vault'
+                            chef_gem 'chef-vault' do
+                              compile_time true if respond_to?(:compile_time)
+                            end
                             require 'chef-vault'
                             GitLab::AttributesWithSecrets.get(node, "omnibus-gitlab")
                           end
@@ -108,6 +110,18 @@ file node['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate_ke
   content ssl['mattermost_private_key']
   not_if { ssl['mattermost_private_key'].nil? }
   mode "0600"
+  notifies :run, 'bash[reload nginx configuration]'
+end
+
+file node['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate'] do
+  content ssl['pages_certificate']
+  not_if { ssl['pages_certificate'].nil? }
+  notifies :run, 'bash[reload nginx configuration]'
+end
+
+file node['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate_key'] do
+  content ssl['pages_private_key']
+  not_if { ssl['pages_private_key'].nil? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
