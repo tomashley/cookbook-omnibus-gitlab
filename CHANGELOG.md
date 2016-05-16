@@ -1,3 +1,7 @@
+# 0.3.3
+
+- Support for Container Registry config
+
 # 0.3.2
 
 - Support for GitLab pages config

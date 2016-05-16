@@ -5,12 +5,15 @@ external_url <%= single_quote @gitlab_rb['external_url'] %>
 ci_external_url <%= single_quote @gitlab_rb['ci_external_url'] %>
 mattermost_external_url <%= single_quote @gitlab_rb['mattermost_external_url'] %>
 pages_external_url <%= single_quote @gitlab_rb['pages_external_url'] %>
+registry_external_url <%= single_quote @gitlab_rb['registry_external_url'] %>
 
 git_data_dir <%= single_quote @gitlab_rb['git_data_dir'] %>
 
 <% %w{
 bootstrap
 omnibus-gitconfig
+manage-accounts
+manage-storage-directories
 user
 redis
 ci-redis
@@ -22,9 +25,13 @@ ci-unicorn
 sidekiq
 ci-sidekiq
 gitlab-git-http-server
+gitlab-workhorse
+mailroom
 nginx
 ci-nginx
 mattermost-nginx
+pages-nginx
+registry-nginx
 logging
 remote-syslog
 logrotate
@@ -32,10 +39,8 @@ high-availability
 postgresql
 web-server
 mattermost
-mailroom
-gitlab-workhorse
-pages-nginx
 gitlab-pages
+registry
   }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
