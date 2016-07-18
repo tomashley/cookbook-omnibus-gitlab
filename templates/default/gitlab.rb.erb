@@ -8,7 +8,7 @@ pages_external_url <%= single_quote @gitlab_rb['pages_external_url'] %>
 registry_external_url <%= single_quote @gitlab_rb['registry_external_url'] %>
 
 git_data_dirs({<% @gitlab_rb['git_data_dirs'].each do |key, value| %>
-  <%= single_quote key %> => <%= single_quote value.inspect %>,
+  "<%= key %>" => <%= value.inspect %>,
   <% end %>})
 
 <% %w{
