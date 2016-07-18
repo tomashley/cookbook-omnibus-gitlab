@@ -1,3 +1,11 @@
+# 0.3.5
+
+- Remove quotes around the storage information in gitlab.rb.erb
+
+# 0.3.4
+
+- Support for multiple storage shards
+
 # 0.3.3
 
 - Support for Container Registry config
