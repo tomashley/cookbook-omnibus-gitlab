@@ -7,9 +7,11 @@ mattermost_external_url <%= single_quote @gitlab_rb['mattermost_external_url'] %
 pages_external_url <%= single_quote @gitlab_rb['pages_external_url'] %>
 registry_external_url <%= single_quote @gitlab_rb['registry_external_url'] %>
 
+<% if @gitlab_rb['git_data_dirs'] %>
 git_data_dirs({<% @gitlab_rb['git_data_dirs'].each do |key, value| %>
   "<%= key %>" => <%= value.inspect %>,
   <% end %>})
+<% end %>
 
 <% %w{
 bootstrap
