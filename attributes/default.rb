@@ -4,6 +4,7 @@ default['omnibus-gitlab']['package']['repo'] = 'gitlab/gitlab-ce'
 default['omnibus-gitlab']['package']['base_url'] = 'https://packages.gitlab.com'
 default['omnibus-gitlab']['package']['name'] = 'gitlab-ce'
 default['omnibus-gitlab']['package']['version'] = nil
+default['omnibus-gitlab']['package']['timeout'] = nil
 
 default['omnibus-gitlab']['data_bag'] = nil
 

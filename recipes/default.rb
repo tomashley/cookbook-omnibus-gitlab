@@ -31,6 +31,7 @@ when 'debian'
   package node['omnibus-gitlab']['package']['name'] do
     version node['omnibus-gitlab']['package']['version']
     options '--force-yes'
+    timeout node['omnibus-gitlab']['package']['timeout']
     notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
 when 'rhel'
@@ -41,6 +42,7 @@ when 'rhel'
 
   package node['omnibus-gitlab']['package']['name'] do
     version node['omnibus-gitlab']['package']['version']
+    timeout node['omnibus-gitlab']['package']['timeout']
     notifies :run, 'execute[gitlab-ctl reconfigure]'
     allow_downgrade true
   end
