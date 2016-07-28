@@ -1,3 +1,11 @@
+# 0.3.7
+
+- Remove the custom header added in 0.3.6. 
+
+# 0.3.6
+
+- Add custom header to the registry config to work around a docker issue.
+
 # 0.3.5
 
 - Remove quotes around the storage information in gitlab.rb.erb
