@@ -12,7 +12,6 @@ remote_file '/usr/local/bin/chronic' do
   action :create_if_missing
 end
 
-
 if backup_cron_job['skip'].any?
   options << " SKIP=#{backup_cron_job['skip'].join(',')}"
 end
@@ -22,7 +21,7 @@ if backup_cron_job['silent']
 end
 
 cron 'GitLab backup' do
-  command "/usr/local/bin/chronic /opt/gitlab/bin/gitlab-rake gitlab:backup:create #{options}"
+  command "/opt/gitlab/bin/gitlab-rake gitlab:backup:create #{options}"
   hour backup_cron_job['hour']
   minute backup_cron_job['minute']
   weekday backup_cron_job['weekday']

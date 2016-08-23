@@ -21,7 +21,8 @@ default['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate'] = 
 default['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/mattermost-nginx.key"
 default['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate'] = "/etc/gitlab/ssl/pages.crt"
 default['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/pages.key"
-
+default['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate'] = "/etc/gitlab/ssl/registry.crt"
+default['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/registry.key"
 
 default['omnibus-gitlab']['skip_auto_migrations'] = false
 
