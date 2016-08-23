@@ -7,7 +7,7 @@ remote_file '/usr/local/bin/chronic' do
   source 'http://habilis.net/cronic/cronic'
   owner 'root'
   group 'root'
-  checksum '43e257be51b40aa3d6f00aaa89df2a74cebfd35d594f26c9c440e588b4070fc7'
+  checksum '25d9772e142ebdcaa72433431e26d855ae82b085709faf0d2169b3bda867aeac'
   mode '0755'
   action :create_if_missing
 end
