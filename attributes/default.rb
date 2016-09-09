@@ -8,9 +8,6 @@ default['omnibus-gitlab']['package']['timeout'] = nil
 
 default['omnibus-gitlab']['data_bag'] = nil
 
-default['omnibus-gitlab']['ssl']['certificate'] = nil
-default['omnibus-gitlab']['ssl']['private_key'] = nil
-
 default['omnibus-gitlab']['ssh']['host_keys'] = {} # hash of 'filename' => 'contents' pairs
 
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] = "/etc/gitlab/ssl/nginx.crt"
