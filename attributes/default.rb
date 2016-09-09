@@ -21,6 +21,17 @@ default['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate_key'] = "
 default['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate'] = "/etc/gitlab/ssl/registry.crt"
 default['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate_key'] = "/etc/gitlab/ssl/registry.key"
 
+default['omnibus-gitlab']['ssl']['certificate'] = ''
+default['omnibus-gitlab']['ssl']['private_key'] = ''
+default['omnibus-gitlab']['ssl']['ci_certificate'] = ''
+default['omnibus-gitlab']['ssl']['ci_private_key'] = ''
+default['omnibus-gitlab']['ssl']['mattermost_certificate'] = ''
+default['omnibus-gitlab']['ssl']['mattermost_private_key'] = ''
+default['omnibus-gitlab']['ssl']['pages_certificate'] = ''
+default['omnibus-gitlab']['ssl']['pages_private_key'] = ''
+default['omnibus-gitlab']['ssl']['registry_certificate'] = ''
+default['omnibus-gitlab']['ssl']['registry_private_key'] = ''
+
 default['omnibus-gitlab']['skip_auto_migrations'] = false
 
 default['omnibus-gitlab']['munin_sidekiq_postreceive']['window_size'] = 100
