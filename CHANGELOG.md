@@ -1,3 +1,11 @@
+# 0.3.9
+
+- Use https://gitlab.com/gitlab-cookbooks/gitlab-vault
+
+# 0.3.8
+
+- Cleanup munin recipes and files, they don't belong here
+
 # 0.3.7
 
 - Remove the custom header added in 0.3.6. 
