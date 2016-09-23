@@ -1,4 +1,13 @@
+#
+# Cookbook Name:: cookbook-omnibus-gitlab
+# Recipe:: backup_cron_job
+#
 # Manage a gitlab backup cron job
+#
+# Copyright (C) 2016 GitLab Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
 
 backup_cron_job = node['omnibus-gitlab']['backup_cron_job']
 options = ''
