@@ -10,7 +10,7 @@
 attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
                             OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
                           else
-                            recipe_include 'gitlab-vault'
+                            include_recipe 'gitlab-vault'
                             GitLab::Vault.get(node, "omnibus-gitlab")
                           end
 
