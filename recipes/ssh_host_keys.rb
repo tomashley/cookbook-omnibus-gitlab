@@ -1,8 +1,17 @@
+#
+# Cookbook Name:: cookbook-omnibus-gitlab
+# Recipe:: ssh_host_keys
+#
 # This recipe will overwrite SSH host keys with values from the same encrypted
 # data bag used by the omnibus-gitlab::default recipe.
 #
 # Use with care! If you supply invalid host keys, you may loose SSH access to
 # your server.
+#
+# Copyright (C) 2016 GitLab Inc.
+#
+# All rights reserved - Do Not Redistribute
+#
 attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
                             OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
                           else
