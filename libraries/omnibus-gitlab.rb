@@ -1,6 +1,6 @@
 module OmnibusGitlab
   def self.fetch_from_databag(node, *path)
-    node_attributes = GitLab::AttributesWithSecrets.fetch_path(node, path) # eg: node['omnibus-gitlab']['gitlab_rb']
+    node_attributes = GitLab::Vault.fetch_path(node, path) # eg: node['omnibus-gitlab']['gitlab_rb']
     databag_secrets = environment_secrets_for_node(node) # eg: {"omnibus-gitlab": {"gitlab_rb": {}}} OR {}
 
     if databag_secrets.any?
