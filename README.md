@@ -62,7 +62,7 @@ certificates.
 
 ### omnibus-gitlab::backup_cron_job
 
-Create/remove a cron job for GitLab backups. Defaults to daily backups at 0:45.
+Create/remove a cron job for GitLab backups. Defaults to daily backups at 0:30.
 
 Use 'gitlab.rb' to configure parameters like rotation and cloud uploads.
 
