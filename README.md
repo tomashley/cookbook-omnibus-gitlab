@@ -3,6 +3,8 @@
 Install GitLab Community Edition or Enterprise Edition omnibus packages from
 packages.gitlab.com.
 
+Depends on: https://gitlab.com/gitlab-cookbooks/gitlab-vault
+
 ## Supported versions
 
 Latest version of this cookbook should be able to support installation of all versions of packages listed on packages.gitlab.com/gitlab/ .
