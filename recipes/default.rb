@@ -29,6 +29,7 @@ when 'debian'
     version node['omnibus-gitlab']['package']['version']
     options '--force-yes'
     timeout node['omnibus-gitlab']['package']['timeout']
+    notifies :run, 'execute[apt-get update]', :before
     notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
 when 'rhel'
@@ -134,6 +135,11 @@ file node['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate_key'
   content ssl['registry_private_key']
   not_if { ssl['registry_private_key'].nil? }
   notifies :run, 'bash[reload nginx configuration]'
+end
+
+# Run apt-get update before installing new version
+execute "apt-get update" do
+  action :nothing
 end
 
 # Run gitlab-ctl reconfigure if /etc/gitlab/gitlab.rb changed
