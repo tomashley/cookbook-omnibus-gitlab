@@ -137,11 +137,6 @@ file node['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate_key'
   notifies :run, 'bash[reload nginx configuration]'
 end
 
-# Run apt-get update before installing new version
-execute "apt-get update" do
-  action :nothing
-end
-
 # Run gitlab-ctl reconfigure if /etc/gitlab/gitlab.rb changed
 execute "gitlab-ctl reconfigure" do
   action :nothing

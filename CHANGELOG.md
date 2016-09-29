@@ -1,3 +1,7 @@
+# 0.3.10
+
+- Fix CHEF-3694 with apt
+
 # 0.3.9
 
 - Use https://gitlab.com/gitlab-cookbooks/gitlab-vault
