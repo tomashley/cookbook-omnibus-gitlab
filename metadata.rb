@@ -4,6 +4,7 @@ maintainer_email 'marin@gitlab.com'
 license          'All rights reserved'
 description      'Installs/Configures GitLab using omnibus-gitlab'
 long_description 'Installs/Configures GitLab using omnibus-gitlab'
-version          '0.3.9'
+version          '0.3.10'
 
 depends 'gitlab-vault'
+depends 'apt'
