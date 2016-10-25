@@ -13,10 +13,10 @@
 # All rights reserved - Do Not Redistribute
 #
 attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
-                            OmnibusGitlab.fetch_from_databag(node, "omnibus-gitlab")
+                            OmnibusGitlab.fetch_from_databag(node, 'omnibus-gitlab')
                           else
                             include_recipe 'gitlab-vault'
-                            GitLab::Vault.get(node, "omnibus-gitlab")
+                            GitLab::Vault.get(node, 'omnibus-gitlab')
                           end
 
 ssh = attributes_with_secrets['ssh']
@@ -28,7 +28,7 @@ ssh['host_keys'].each do |filename, key_material|
   # private key. If this fails, the Chef run will fail and the target file is
   # not overwritten.
   bash "install SSH host key #{filename}" do
-    code %Q{
+    code %{
 set -e
 set -u
 
@@ -57,6 +57,6 @@ mv ${temp_key}.pub #{key_path}.pub
     # then ssh-keygen will prompt the user for a password, effectively making
     # the script hang.
     timeout 10
-    not_if { File.exists?(key_path) && File.read(key_path).strip == key_material.strip }
+    not_if { File.exist?(key_path) && File.read(key_path).strip == key_material.strip }
   end
 end
