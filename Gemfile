@@ -1,21 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-gem 'chef'
 gem 'chefspec'
-gem 'foodcritic'
-gem 'rubocop'
 gem 'test-kitchen'
-gem 'cookstyle'
-
-# Uncomment these lines if you want to live on the Edge:
-#
-# group :development do
-#   gem "berkshelf", github: "berkshelf/berkshelf"
-#   gem "vagrant", github: "mitchellh/vagrant", tag: "v1.5.2"
-# end
-#
-# group :plugins do
-#   gem "vagrant-berkshelf", github: "berkshelf/vagrant-berkshelf"
-#   gem "vagrant-omnibus", github: "schisamo/vagrant-omnibus"
-# end
+gem 'kitchen-vagrant'
+gem 'berkshelf'
+gem 'stove'
+gem 'rubocop'
+gem 'rake'
+gem 'foodcritic'
+gem 'kitchen-digitalocean'
+gem 'kitchen-dokken'
