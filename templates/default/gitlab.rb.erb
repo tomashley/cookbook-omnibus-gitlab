@@ -45,6 +45,10 @@ web-server
 mattermost
 gitlab-pages
 registry
+sentinel
+redis_master_role
+redis_slave_role
+redis_sentinel_role
   }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
