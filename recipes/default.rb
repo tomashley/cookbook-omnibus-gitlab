@@ -15,7 +15,7 @@ attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
                           end
 
 pkg_url = "#{node['omnibus-gitlab']['package']['scheme_url']}://#{node['omnibus-gitlab']['package']['base_url']}"
-pkg_url = "#{node['omnibus-gitlab']['package']['scheme_url']}://#{attributes_with_secrets['package']['key']}:@#{node['omnibus-gitlab']['package']['base_url']}" if attributes_with_secrets['package']['key']
+pkg_url = "#{node['omnibus-gitlab']['package']['scheme_url']}://#{attributes_with_secrets['package']['key']}:@#{node['omnibus-gitlab']['package']['base_url']}" if node['omnibus-gitlab']['package']['use_key']
 pkg_repo = node['omnibus-gitlab']['package']['repo']
 package 'curl'
 
