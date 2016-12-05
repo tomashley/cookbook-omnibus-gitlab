@@ -1,3 +1,7 @@
+# 0.3.11
+
+- Add key attribute for private repositories
+
 # 0.3.10
 
 - Fix CHEF-3694 with apt
