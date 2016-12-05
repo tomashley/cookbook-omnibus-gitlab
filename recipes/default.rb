@@ -14,14 +14,15 @@ attributes_with_secrets = if node['omnibus-gitlab']['data_bag']
                             GitLab::Vault.get(node, 'omnibus-gitlab')
                           end
 
-pkg_base_url = node['omnibus-gitlab']['package']['base_url']
+pkg_url = "#{node['omnibus-gitlab']['package']['scheme_url']}://#{node['omnibus-gitlab']['package']['base_url']}"
+pkg_url = "#{node['omnibus-gitlab']['package']['scheme_url']}://#{attributes_with_secrets['package']['key']}:@#{node['omnibus-gitlab']['package']['base_url']}" if attributes_with_secrets['package']['key']
 pkg_repo = node['omnibus-gitlab']['package']['repo']
 package 'curl'
 
 case node['platform_family']
 when 'debian'
-  execute "add #{pkg_base_url}/#{pkg_repo} apt repo" do
-    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.deb.sh | bash"
+  execute "add #{pkg_url}/#{pkg_repo} apt repo" do
+    command "curl #{pkg_url}/install/repositories/#{pkg_repo}/script.deb.sh | bash"
     creates "/etc/apt/sources.list.d/#{pkg_repo.sub('/', '_')}.list"
   end
 
@@ -33,8 +34,8 @@ when 'debian'
     notifies :run, 'execute[gitlab-ctl reconfigure]'
   end
 when 'rhel'
-  execute "add #{pkg_base_url}/#{pkg_repo} yum repo" do
-    command "curl #{pkg_base_url}/install/repositories/#{pkg_repo}/script.rpm.sh | bash"
+  execute "add #{pkg_url}/#{pkg_repo} yum repo" do
+    command "curl #{pkg_url}/install/repositories/#{pkg_repo}/script.rpm.sh | bash"
     creates "/etc/yum.repos.d/#{pkg_repo.sub('/', '_')}.repo"
   end
 
