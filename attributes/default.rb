@@ -1,7 +1,8 @@
 default['omnibus-gitlab']['package']['url'] = 'https://downloads-packages.s3.amazonaws.com/ubuntu-12.04/gitlab_6.9.0-omnibus-1_amd64.deb'
 default['omnibus-gitlab']['package']['sha256'] = '42e8224f8aa8689ba80380d036a3b367ffb63a85b5e447670a5233d888b85924'
 default['omnibus-gitlab']['package']['repo'] = 'gitlab/gitlab-ce'
-default['omnibus-gitlab']['package']['key'] = nil
+default['omnibus-gitlab']['package']['key'] = 'set key in vault'
+default['omnibus-gitlab']['package']['use_key'] = false
 default['omnibus-gitlab']['package']['base_url'] = 'packages.gitlab.com'
 default['omnibus-gitlab']['package']['scheme_url'] = 'https'
 default['omnibus-gitlab']['package']['name'] = 'gitlab-ce'
