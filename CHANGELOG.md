@@ -1,3 +1,7 @@
+# 0.3.12
+
+- Add sidekiq-cluster service
+
 # 0.3.11
 
 - Add key attribute for private repositories
