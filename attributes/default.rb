@@ -46,3 +46,4 @@ default['omnibus-gitlab']['backup_cron_job']['minute'] = '30'
 default['omnibus-gitlab']['backup_cron_job']['weekday'] = nil # defaults to '*', every day
 default['omnibus-gitlab']['backup_cron_job']['user'] = 'root'
 default['omnibus-gitlab']['backup_cron_job']['enable'] = true
+default['omnibus-gitlab']['backup_cron_job']['pre_command'] = ''
