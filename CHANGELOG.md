@@ -1,3 +1,7 @@
+# 0.3.13
+
+- Add pre_command for backup cronjob
+
 # 0.3.12
 
 - Add sidekiq-cluster service
