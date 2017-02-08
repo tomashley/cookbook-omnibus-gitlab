@@ -40,7 +40,8 @@ default['omnibus-gitlab']['skip_auto_migrations'] = false
 default['omnibus-gitlab']['munin_sidekiq_postreceive']['window_size'] = 100
 
 default['omnibus-gitlab']['backup_cron_job']['skip'] = []
-default['omnibus-gitlab']['backup_cron_job']['silent'] = true
+default['omnibus-gitlab']['backup_cron_job']['silent'] = false
+default['omnibus-gitlab']['backup_cron_job']['log'] = nil
 default['omnibus-gitlab']['backup_cron_job']['hour'] = '0'
 default['omnibus-gitlab']['backup_cron_job']['minute'] = '30'
 default['omnibus-gitlab']['backup_cron_job']['weekday'] = nil # defaults to '*', every day

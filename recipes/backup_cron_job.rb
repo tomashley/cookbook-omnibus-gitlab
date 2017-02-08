@@ -18,6 +18,7 @@ if backup_cron_job['skip'].any?
 end
 
 options << ' CRON=1' if backup_cron_job['silent']
+options << " >#{backup_cron_job['log']} 2>&1" if backup_cron_job['log']
 
 cron 'GitLab backup' do
   command "#{pre_command}/opt/gitlab/bin/gitlab-rake gitlab:backup:create #{options}"
