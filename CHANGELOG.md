@@ -1,3 +1,7 @@
+# 0.3.15
+
+- Remove deprecated standalone CI configuration
+
 # 0.3.14
 
 - Add log option for cronjob
@@ -28,7 +32,7 @@
 
 # 0.3.7
 
-- Remove the custom header added in 0.3.6. 
+- Remove the custom header added in 0.3.6.
 - Update Cronic version checksum (Evan Felix)
 - Configurable package timeout setting (Jan Skarvall)
 
