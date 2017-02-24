@@ -15,8 +15,6 @@ default['omnibus-gitlab']['ssh']['host_keys'] = {} # hash of 'filename' => 'cont
 
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] = '/etc/gitlab/ssl/nginx.crt'
 default['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] = '/etc/gitlab/ssl/nginx.key'
-default['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate'] = '/etc/gitlab/ssl/ci-nginx.crt'
-default['omnibus-gitlab']['gitlab_rb']['ci-nginx']['ssl_certificate_key'] = '/etc/gitlab/ssl/ci-nginx.key'
 default['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate'] = '/etc/gitlab/ssl/mattermost-nginx.crt'
 default['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate_key'] = '/etc/gitlab/ssl/mattermost-nginx.key'
 default['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate'] = '/etc/gitlab/ssl/pages.crt'
@@ -26,8 +24,6 @@ default['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate_key'] 
 
 default['omnibus-gitlab']['ssl']['certificate'] = ''
 default['omnibus-gitlab']['ssl']['private_key'] = ''
-default['omnibus-gitlab']['ssl']['ci_certificate'] = ''
-default['omnibus-gitlab']['ssl']['ci_private_key'] = ''
 default['omnibus-gitlab']['ssl']['mattermost_certificate'] = ''
 default['omnibus-gitlab']['ssl']['mattermost_private_key'] = ''
 default['omnibus-gitlab']['ssl']['pages_certificate'] = ''
