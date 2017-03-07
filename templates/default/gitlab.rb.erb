@@ -46,6 +46,11 @@ redis_slave_role
 redis_sentinel_role
 sidekiq-cluster
 gitaly
+prometheus
+node_exporter
+redis_exporter
+postgres_exporter
+gitlab_monitor
   }.each do |svc| %>
 <%   if @gitlab_rb[svc] %>
 
