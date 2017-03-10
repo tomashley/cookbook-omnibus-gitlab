@@ -77,51 +77,51 @@ ssl = attributes_with_secrets['ssl']
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate'] do
   content ssl['certificate']
-  not_if { ssl['certificate'].nil? }
+  not_if { ssl['certificate'].empty? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['nginx']['ssl_certificate_key'] do
   content ssl['private_key']
-  not_if { ssl['private_key'].nil? }
+  not_if { ssl['private_key'].empty? }
   mode '0600'
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate'] do
   content ssl['mattermost_certificate']
-  not_if { ssl['mattermost_certificate'].nil? }
+  not_if { ssl['mattermost_certificate'].empty? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['mattermost-nginx']['ssl_certificate_key'] do
   content ssl['mattermost_private_key']
-  not_if { ssl['mattermost_private_key'].nil? }
+  not_if { ssl['mattermost_private_key'].empty? }
   mode '0600'
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate'] do
   content ssl['pages_certificate']
-  not_if { ssl['pages_certificate'].nil? }
+  not_if { ssl['pages_certificate'].empty? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['pages-nginx']['ssl_certificate_key'] do
   content ssl['pages_private_key']
-  not_if { ssl['pages_private_key'].nil? }
+  not_if { ssl['pages_private_key'].empty? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate'] do
   content ssl['registry_certificate']
-  not_if { ssl['registry_certificate'].nil? }
+  not_if { ssl['registry_certificate'].empty? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
 file node['omnibus-gitlab']['gitlab_rb']['registry-nginx']['ssl_certificate_key'] do
   content ssl['registry_private_key']
-  not_if { ssl['registry_private_key'].nil? }
+  not_if { ssl['registry_private_key'].empty? }
   notifies :run, 'bash[reload nginx configuration]'
 end
 
