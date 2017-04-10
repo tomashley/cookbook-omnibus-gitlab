@@ -1,3 +1,8 @@
+# 0.3.16
+
+- Allow disabling all prometheus services with prometheus_monitoring option
+- Fix certificate non nil checks (Evan Felix)
+
 # 0.3.15
 
 - Remove deprecated standalone CI configuration
